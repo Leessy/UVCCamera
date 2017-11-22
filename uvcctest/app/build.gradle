@@ -1,0 +1,39 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion '26.0.2'
+
+    defaultConfig {
+        applicationId "com.hwabo.uvcctest"
+        minSdkVersion 18
+        targetSdkVersion 25
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    sourceSets {
+        main {
+            //jni库的调用会到资源文件夹下libs里面找so文件
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+}
+repositories { flatDir { dirs 'libs' } }
+dependencies {
+    //    compile fileTree(include: ['*.jar',], dir: 'libs')
+    testCompile 'junit:junit:4.12'
+    compile 'com.android.support:appcompat-v7:25.2.0'
+    //    compile(name: 'common', ext: 'aar')
+    //    compile(name: 'uvccamera', ext: 'aar')
+    //    compile(name: 'usbcameracommon', ext: 'aar')
+    compile files('libs/libcommon.jar')
+    compile files('libs/libuvccamera.jar')
+    compile files('libs/usbCameraCommon.jar')
+}
